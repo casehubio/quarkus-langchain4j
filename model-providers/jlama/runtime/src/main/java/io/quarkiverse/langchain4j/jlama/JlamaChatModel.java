@@ -151,7 +151,7 @@ public class JlamaChatModel implements ChatLanguageModel {
     }
 
     private PromptContext promptContext(PromptSupport.Builder promptBuilder, List<ToolSpecification> toolSpecifications) {
-        return toolSpecifications.isEmpty() ? promptBuilder.build()
+        return (toolSpecifications == null || toolSpecifications.isEmpty()) ? promptBuilder.build()
                 : promptBuilder.build(toolSpecifications.stream().map(JlamaModel::toTool).toList());
     }
 
