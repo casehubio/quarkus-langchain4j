@@ -41,7 +41,7 @@ jobs:
         uses: jbangdev/setup-jbang@main
 
       - name: Build with Maven
-        run: ./mvnw -B clean install -Dno-format
+        run: ./mvnw -B clean install -Dci=true -Dno-format
         env:
           PINECONE_API_KEY: ${{ secrets.PINECONE_API_KEY }}
           PINECONE_ENVIRONMENT: ${{ secrets.PINECONE_ENVIRONMENT }}

@@ -77,18 +77,26 @@ public class WebSocketsNextTest extends OpenAiBaseTest {
                 .then()
                 .statusCode(200);
 
-        assertThat(chatMemoryStore.idsFromGetMessages).hasSize(1)
-                .hasOnlyElementsOfType(String.class);
-        assertThat(chatMemoryStore.idsFromGetMessages).hasSameElementsAs(chatMemoryStore.idsFromDeleteMessaged);
+        Awaitility.given().pollInterval(100, TimeUnit.MILLISECONDS)
+                .atMost(2, TimeUnit.SECONDS)
+                .untilAsserted(() -> {
+                    assertThat(chatMemoryStore.idsFromGetMessages).hasSize(1)
+                            .hasOnlyElementsOfType(String.class);
+                    assertThat(chatMemoryStore.idsFromGetMessages).hasSameElementsAs(chatMemoryStore.idsFromDeleteMessaged);
+                });
 
         when()
                 .get("rest")
                 .then()
                 .statusCode(200);
 
-        assertThat(chatMemoryStore.idsFromGetMessages).hasSize(2)
-                .hasOnlyElementsOfType(String.class);
-        assertThat(chatMemoryStore.idsFromGetMessages).hasSameElementsAs(chatMemoryStore.idsFromDeleteMessaged);
+        Awaitility.given().pollInterval(100, TimeUnit.MILLISECONDS)
+                .atMost(2, TimeUnit.SECONDS)
+                .untilAsserted(() -> {
+                    assertThat(chatMemoryStore.idsFromGetMessages).hasSize(2)
+                            .hasOnlyElementsOfType(String.class);
+                    assertThat(chatMemoryStore.idsFromGetMessages).hasSameElementsAs(chatMemoryStore.idsFromDeleteMessaged);
+                });
     }
 
     @Test
